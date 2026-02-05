@@ -21,6 +21,8 @@ objdir(".bin-int/" .. OutputDir .. "%{prj.name}/")
 IncludeDirs = {}
 IncludeDirs["Cobweb"] = "%{wks.location}/Cobweb/src"
 
+IncludeDirs["Spdlog"] = "%{wks.location}/Cobweb/Dependencies/Spdlog/include"
+
 filter "configurations:Debug"
 	defines "CW_DEBUG"
 	symbols "On"

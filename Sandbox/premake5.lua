@@ -11,7 +11,9 @@ project "Sandbox"
 
 	includedirs
 	{
-		IncludeDirs["Cobweb"]
+		IncludeDirs["Cobweb"],
+
+		IncludeDirs["Spdlog"]
 	}
 
 	links

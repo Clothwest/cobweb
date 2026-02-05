@@ -11,5 +11,7 @@ project "Cobweb"
 
 	includedirs
 	{
-		"src"
+		"src",
+
+		IncludeDirs["Spdlog"]
 	}
