@@ -1,6 +1,13 @@
-#include "Test.h"
+#include "Cobweb.h"
 
-int main()
+class SandboxApp : public Cobweb::Application
 {
-	Cobweb::PrintHello();
+public:
+	SandboxApp() = default;
+	~SandboxApp() = default;
+};
+
+Cobweb::Application *Cobweb::CreateApplication()
+{
+	return new SandboxApp();
 }
