@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <utility>
-
 namespace Cobweb
 {
 	class WindowClosedEvent : public Event

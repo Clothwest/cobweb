@@ -3,6 +3,9 @@ project "Cobweb"
 	language "C++"
 	cppdialect "C++17"
 
+	pchheader "cbpch.h"
+	pchsource "src/cbpch.cpp"
+
 	files
 	{
 		"src/**.h",
