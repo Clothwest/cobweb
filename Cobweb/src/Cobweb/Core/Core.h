@@ -3,6 +3,8 @@
 #include <memory>
 #include <utility>
 
+#define BIT(x) (1 << x)
+
 template <typename T>
 using Scope = std::unique_ptr<T>;
 template <typename T, typename... Args>
