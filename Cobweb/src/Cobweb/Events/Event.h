@@ -49,6 +49,7 @@ namespace Cobweb
 
 		inline bool IsInCategory(EventCategory category) const { return GetEventCategoryFlags() & category; }
 
+		inline void Handle() { m_Handled = true; }
 		inline bool IsHandled() const { return m_Handled; }
 
 	protected:

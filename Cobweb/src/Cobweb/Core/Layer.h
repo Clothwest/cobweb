@@ -19,6 +19,7 @@ namespace Cobweb
 		virtual inline void OnAttach() {}
 		virtual inline void OnDetach() {}
 		virtual inline void OnUpdate() {}
+		virtual inline void OnImGuiRender() {}
 		virtual inline void OnEvent(Event &e) {}
 
 		inline const std::string &GetName() const { return m_Name; }

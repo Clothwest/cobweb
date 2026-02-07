@@ -33,10 +33,10 @@ namespace Cobweb
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		CW_CORE_ASSERT(status, "Could not initialize Glad!");
 
-		//CW_CORE_INFO("OpenGL Info:");
-		//CW_CORE_INFO((const char *)glGetString(GL_VENDOR));
-		//CW_CORE_INFO((const char *)glGetString(GL_RENDERER));
-		//CW_CORE_INFO((const char *)glGetString(GL_VERSION));
+		CW_CORE_INFO("OpenGL Info:");
+		CW_CORE_INFO((const char *)glGetString(GL_VENDOR));
+		CW_CORE_INFO((const char *)glGetString(GL_RENDERER));
+		CW_CORE_INFO((const char *)glGetString(GL_VERSION));
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);

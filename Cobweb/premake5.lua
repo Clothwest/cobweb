@@ -18,7 +18,8 @@ project "Cobweb"
 
 		IncludeDirs["Spdlog"],
 		IncludeDirs["GLFW"],
-		IncludeDirs["Glad"]
+		IncludeDirs["Glad"],
+		IncludeDirs["ImGui"]
 	}
 
 	defines
@@ -28,8 +29,11 @@ project "Cobweb"
 
 	links
 	{
+		"opengl32.lib",
+
 		"GLFW",
-		"Glad"
+		"Glad",
+		"ImGui"
 	}
 
 	filter "configurations:Debug"
