@@ -19,7 +19,8 @@ project "Cobweb"
 		IncludeDirs["Spdlog"],
 		IncludeDirs["GLFW"],
 		IncludeDirs["Glad"],
-		IncludeDirs["ImGui"]
+		IncludeDirs["ImGui"],
+		IncludeDirs["GLM"]
 	}
 
 	defines

@@ -14,7 +14,8 @@ project "Sandbox"
 		IncludeDirs["Cobweb"],
 
 		IncludeDirs["Spdlog"],
-		IncludeDirs["ImGui"]
+		IncludeDirs["ImGui"],
+		IncludeDirs["GLM"]
 	}
 
 	links

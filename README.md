@@ -12,6 +12,8 @@
 
 - [`glad`](https://glad.dav1d.de/)
 
+- [`glm`](https://github.com/g-truc/glm) - **1.0.3**
+
 ## NOTICE
 
   - I follow the game engine series by [Cherno](https://www.youtube.com/@TheCherno)
