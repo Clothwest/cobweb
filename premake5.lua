@@ -23,6 +23,7 @@ IncludeDirs["Cobweb"] = "%{wks.location}/Cobweb/src"
 
 IncludeDirs["Spdlog"] = "%{wks.location}/Cobweb/Dependencies/Spdlog/include"
 IncludeDirs["GLFW"] = "%{wks.location}/Cobweb/Dependencies/GLFW/include"
+IncludeDirs["Glad"] = "%{wks.location}/Cobweb/Dependencies/Glad/include"
 
 filter "configurations:Debug"
 	symbols "On"
@@ -40,6 +41,7 @@ filter {}
 
 group "Dependencies"
 	include "Cobweb/Dependencies/GLFW"
+	include "Cobweb/Dependencies/Glad"
 group ""
 
 include "Cobweb"

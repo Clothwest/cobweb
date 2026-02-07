@@ -10,6 +10,8 @@
 
 - [`glfw`](https://github.com/glfw/glfw) - **3.4**
 
+- [`glad`](https://glad.dav1d.de/)
+
 ## NOTICE
 
   - I follow the game engine series by [Cherno](https://www.youtube.com/@TheCherno)

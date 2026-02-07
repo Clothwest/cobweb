@@ -3,6 +3,8 @@
 
 #include "Cobweb/Core/Log.h"
 
+#include <glad/glad.h>
+
 namespace Cobweb
 {
 	Scope<Window> Window::Create(const WindowProps &props)
@@ -13,7 +15,7 @@ namespace Cobweb
 	WindowsWindow::WindowsWindow(const WindowProps &props)
 		: m_Data(props)
 	{
-		CW_CORE_TRACE("Creating window \"{0}\" ({1}, {2}).", props.Title, props.Width, props.Height);
+		CW_CORE_INFO("Creating window \"{0}\" ({1}, {2}).", props.Title, props.Width, props.Height);
 
 		int success = glfwInit();
 		CW_CORE_ASSERT(success, "Could not initialize GLFW!");
@@ -28,6 +30,8 @@ namespace Cobweb
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		CW_CORE_ASSERT(status, "Could not initialize Glad!");
 
 		//CW_CORE_INFO("OpenGL Info:");
 		//CW_CORE_INFO((const char *)glGetString(GL_VENDOR));

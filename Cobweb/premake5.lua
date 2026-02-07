@@ -17,12 +17,19 @@ project "Cobweb"
 		"src",
 
 		IncludeDirs["Spdlog"],
-		IncludeDirs["GLFW"]
+		IncludeDirs["GLFW"],
+		IncludeDirs["Glad"]
+	}
+
+	defines
+	{
+		"GLFW_INCLUDE_NONE"
 	}
 
 	links
 	{
-		"GLFW"
+		"GLFW",
+		"Glad"
 	}
 
 	filter "configurations:Debug"
