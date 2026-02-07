@@ -1,9 +1,34 @@
 #include "Cobweb.h"
 
+class SandboxLayer : public Cobweb::Layer
+{
+public:
+	SandboxLayer()
+		: Cobweb::Layer("SandboxLayer")
+	{
+	}
+
+	~SandboxLayer() = default;
+
+	inline void OnAttach() override
+	{
+		CW_WARN("{} is pushed.", GetName());
+	}
+
+	inline void OnEvent(Cobweb::Event &e) override
+	{
+		CW_INFO(e);
+	}
+};
+
 class SandboxApp : public Cobweb::Application
 {
 public:
-	SandboxApp() = default;
+	SandboxApp()
+	{
+		PushLayer(new SandboxLayer());
+	}
+
 	~SandboxApp() = default;
 };
 

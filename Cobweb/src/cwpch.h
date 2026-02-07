@@ -7,5 +7,6 @@
 
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "Cobweb/Core/Log.h"

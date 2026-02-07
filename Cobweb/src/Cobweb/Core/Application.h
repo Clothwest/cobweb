@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "LayerStack.h"
 
 namespace Cobweb
 {
@@ -15,6 +16,9 @@ namespace Cobweb
 
 		void OnEvent(Event &e);
 
+		void PushLayer(Layer *layer);
+		void PushOverlay(Layer *overlay);
+
 	private:
 		bool OnWindowClosed(WindowClosedEvent &e);
 
@@ -22,6 +26,8 @@ namespace Cobweb
 		bool m_Running = true;
 
 		Scope<Window> m_Window = Window::Create();
+
+		LayerStack m_Layers;
 	};
 
 	// To bo defined in CLIENT
