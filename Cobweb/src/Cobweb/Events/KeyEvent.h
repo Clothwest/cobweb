@@ -7,7 +7,7 @@ namespace Cobweb
 	class KeyEvent : public Event
 	{
 	public:
-		~KeyEvent() = default;
+		virtual ~KeyEvent() = default;
 
 		inline int GetKeyCode() const { return m_KeyCode; }
 

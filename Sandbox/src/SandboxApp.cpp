@@ -17,6 +17,12 @@ public:
 		CW_WARN("{} is pushed.", GetName());
 	}
 	
+	inline void OnUpdate() override
+	{
+		if (Cobweb::Input::IsMouseButtonPressed(0))
+			CW_INFO("Clicked!");
+	}
+
 	inline void OnEvent(Cobweb::Event &e) override
 	{
 		//CW_INFO(e);

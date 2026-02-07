@@ -35,7 +35,7 @@ namespace Cobweb
 	class MouseButtonEvent : public Event
 	{
 	public:
-		~MouseButtonEvent() = default;
+		virtual ~MouseButtonEvent() = default;
 
 		inline int GetMouseButton() const { return m_Button; }
 
