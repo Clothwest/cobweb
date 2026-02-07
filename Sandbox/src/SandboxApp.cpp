@@ -19,7 +19,7 @@ public:
 	
 	inline void OnUpdate() override
 	{
-		if (Cobweb::Input::IsMouseButtonPressed(0))
+		if (Cobweb::Input::IsMouseButtonPressed(CW_MOUSE_BUTTON_LEFT))
 			CW_INFO("Clicked!");
 	}
 
