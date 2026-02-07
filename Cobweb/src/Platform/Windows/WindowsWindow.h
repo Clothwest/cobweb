@@ -2,6 +2,8 @@
 
 #include "Cobweb/Core/Window.h"
 
+#include "Cobweb/Renderer/GraphicsContext.h"
+
 #include <GLFW/glfw3.h>
 
 #include <utility>
@@ -45,6 +47,7 @@ namespace Cobweb
 
 	private:
 		GLFWwindow *m_Window;
+		GraphicsContext *m_Context;
 
 		struct WindowData
 		{

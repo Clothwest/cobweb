@@ -3,7 +3,7 @@
 
 #include "Cobweb/Core/Log.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Cobweb
 {
@@ -29,14 +29,8 @@ namespace Cobweb
 			});
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		CW_CORE_ASSERT(status, "Could not initialize Glad!");
-
-		CW_CORE_INFO("OpenGL Info:");
-		CW_CORE_INFO((const char *)glGetString(GL_VENDOR));
-		CW_CORE_INFO((const char *)glGetString(GL_RENDERER));
-		CW_CORE_INFO((const char *)glGetString(GL_VERSION));
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -56,6 +50,7 @@ namespace Cobweb
 
 	WindowsWindow::~WindowsWindow()
 	{
+		delete m_Context;
 		glfwDestroyWindow(m_Window);
 		glfwTerminate();
 	}
@@ -63,7 +58,7 @@ namespace Cobweb
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffer();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

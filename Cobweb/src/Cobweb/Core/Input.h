@@ -2,6 +2,8 @@
 
 #include <utility>
 
+// TODO: define the ownership of Input (should be deleted somewhere)
+
 namespace Cobweb
 {
 	class Input
