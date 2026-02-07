@@ -3,8 +3,8 @@ project "Cobweb"
 	language "C++"
 	cppdialect "C++17"
 
-	pchheader "cbpch.h"
-	pchsource "src/cbpch.cpp"
+	pchheader "cwpch.h"
+	pchsource "src/cwpch.cpp"
 
 	files
 	{
@@ -16,5 +16,20 @@ project "Cobweb"
 	{
 		"src",
 
-		IncludeDirs["Spdlog"]
+		IncludeDirs["Spdlog"],
+		IncludeDirs["GLFW"]
 	}
+
+	links
+	{
+		"GLFW"
+	}
+
+	filter "configurations:Debug"
+		defines "CW_DEBUG"
+
+	filter "configurations:Release"
+		defines "CW_RELEASE"
+
+	filter "configurations:Dist"
+		defines "CW_DIST"

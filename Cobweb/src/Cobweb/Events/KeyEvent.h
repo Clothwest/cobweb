@@ -35,14 +35,13 @@ namespace Cobweb
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": " << m_KeyCode << " (Repeated: " << m_RepeatCount << ")";
 			return ss.str();
 		}
 
-	private:
 		EVENT_CLASS_TYPE(KeyPressed);
 
 	private:
@@ -59,14 +58,33 @@ namespace Cobweb
 
 		~KeyReleasedEvent() = default;
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": " << m_KeyCode;
 			return ss.str();
 		}
 
-	private:
 		EVENT_CLASS_TYPE(KeyReleased);
+	};
+
+	class KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int codePoint)
+			: KeyEvent(codePoint)
+		{
+		}
+
+		~KeyTypedEvent() = default;
+
+		inline std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << GetName() << ": " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
 	};
 }

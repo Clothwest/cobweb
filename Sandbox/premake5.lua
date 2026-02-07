@@ -20,3 +20,12 @@ project "Sandbox"
 	{
 		"Cobweb"
 	}
+
+	filter "configurations:Debug"
+		defines "CW_DEBUG"
+
+	filter "configurations:Release"
+		defines "CW_RELEASE"
+
+	filter "configurations:Dist"
+		defines "CW_DIST"

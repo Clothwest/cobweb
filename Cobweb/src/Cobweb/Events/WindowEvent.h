@@ -11,8 +11,6 @@ namespace Cobweb
 		~WindowClosedEvent() = default;
 
 		EVENT_CLASS_CATEGORY(EventCategory_Window);
-
-	private:
 		EVENT_CLASS_TYPE(WindowClosed);
 	};
 
@@ -38,8 +36,6 @@ namespace Cobweb
 		}
 
 		EVENT_CLASS_CATEGORY(EventCategory_Window);
-
-	private:
 		EVENT_CLASS_TYPE(WindowResized);
 
 	private:
@@ -49,8 +45,8 @@ namespace Cobweb
 	class WindowMovedEvent : public Event
 	{
 	public:
-		WindowMovedEvent(int x, int y)
-			: m_XPos(x), m_YPos(y)
+		WindowMovedEvent(int xPos, int yPos)
+			: m_XPos(xPos), m_YPos(yPos)
 		{
 		}
 
@@ -60,7 +56,7 @@ namespace Cobweb
 		inline int GetYPos() const { return m_YPos; }
 		inline std::pair<int, int> GetPos() const { return { m_XPos, m_YPos }; }
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": (" << m_XPos << ", " << m_YPos << ")";
@@ -68,8 +64,6 @@ namespace Cobweb
 		}
 
 		EVENT_CLASS_CATEGORY(EventCategory_Window);
-
-	private:
 		EVENT_CLASS_TYPE(WindowMoved);
 
 	private:
@@ -83,8 +77,6 @@ namespace Cobweb
 		~WindowFocusedEvent() = default;
 
 		EVENT_CLASS_CATEGORY(EventCategory_Window);
-
-	private:
 		EVENT_CLASS_TYPE(WindowFocused);
 	};
 
@@ -95,8 +87,6 @@ namespace Cobweb
 		~WindowLostFocusEvent() = default;
 
 		EVENT_CLASS_CATEGORY(EventCategory_Window);
-
-	private:
 		EVENT_CLASS_TYPE(WindowLostFocus);
 	};
 }

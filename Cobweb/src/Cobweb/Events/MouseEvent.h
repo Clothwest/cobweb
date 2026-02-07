@@ -7,18 +7,18 @@ namespace Cobweb
 	class MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(int xPos, int yPos)
+		MouseMovedEvent(float xPos, float yPos)
 			: m_XPos(xPos), m_YPos(yPos)
 		{
 		}
 
 		~MouseMovedEvent() = default;
 
-		inline int GetXPos() const { return m_XPos; }
-		inline int GetYPos() const { return m_YPos; }
-		inline std::pair<int, int> GetPos() const { return { m_XPos, m_YPos }; }
+		inline float GetXPos() const { return m_XPos; }
+		inline float GetYPos() const { return m_YPos; }
+		inline std::pair<float, float> GetPos() const { return { m_XPos, m_YPos }; }
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": (" << m_XPos << ", " << m_YPos << ")";
@@ -26,12 +26,10 @@ namespace Cobweb
 		}
 
 		EVENT_CLASS_CATEGORY(EventCategory_Mouse | EventCategory_Input);
-
-	private:
 		EVENT_CLASS_TYPE(MouseMoved);
 
 	private:
-		int m_XPos, m_YPos;
+		float m_XPos, m_YPos;
 	};
 
 	class MouseButtonEvent : public Event
@@ -63,14 +61,13 @@ namespace Cobweb
 
 		~MouseButtonPressedEvent() = default;
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": " << m_Button;
 			return ss.str();
 		}
 
-	private:
 		EVENT_CLASS_TYPE(MouseButtonPressed);
 	};
 
@@ -84,32 +81,31 @@ namespace Cobweb
 
 		~MouseButtonReleasedEvent() = default;
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": " << m_Button;
 			return ss.str();
 		}
 
-	private:
 		EVENT_CLASS_TYPE(MouseButtonReleased);
 	};
 
 	class MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(int xOffset, int yOffset)
+		MouseScrolledEvent(float xOffset, float yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset)
 		{
 		}
 
 		~MouseScrolledEvent() = default;
 
-		inline int GetXOffset() const { return m_XOffset; }
-		inline int GetYOffset() const { return m_YOffset; }
-		inline std::pair<int, int> GetOffset() const { return { m_XOffset, m_YOffset }; }
+		inline float GetXOffset() const { return m_XOffset; }
+		inline float GetYOffset() const { return m_YOffset; }
+		inline std::pair<float, float> GetOffset() const { return { m_XOffset, m_YOffset }; }
 
-		inline std::string ToString() const
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << GetName() << ": (" << m_XOffset << ", " << m_YOffset << ")";
@@ -117,11 +113,9 @@ namespace Cobweb
 		}
 
 		EVENT_CLASS_CATEGORY(EventCategory_Mouse | EventCategory_Input);
-
-	private:
 		EVENT_CLASS_TYPE(MouseScrolled);
 
 	private:
-		int m_XOffset, m_YOffset;
+		float m_XOffset, m_YOffset;
 	};
 }

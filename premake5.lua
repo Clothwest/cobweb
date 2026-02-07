@@ -22,23 +22,25 @@ IncludeDirs = {}
 IncludeDirs["Cobweb"] = "%{wks.location}/Cobweb/src"
 
 IncludeDirs["Spdlog"] = "%{wks.location}/Cobweb/Dependencies/Spdlog/include"
+IncludeDirs["GLFW"] = "%{wks.location}/Cobweb/Dependencies/GLFW/include"
 
 filter "configurations:Debug"
-	defines "CW_DEBUG"
 	symbols "On"
 	runtime "Debug"
 
 filter "configurations:Release"
-	defines "CW_RELEASE"
 	optimize "Speed"
 	runtime "Release"
 
 filter "configurations:Dist"
-	defines "CW_DIST"
 	optimize "Speed"
 	runtime "Release"
 
 filter {}
+
+group "Dependencies"
+	include "Cobweb/Dependencies/GLFW"
+group ""
 
 include "Cobweb"
 

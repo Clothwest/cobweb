@@ -16,7 +16,7 @@ namespace Cobweb
 	{
 		None = 0,
 		WindowClosed, WindowResized, WindowMoved, WindowFocused, WindowLostFocus,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 		MouseMoved, MouseButtonPressed, MouseButtonReleased, MouseScrolled
 	};
 
@@ -40,6 +40,11 @@ namespace Cobweb
 	public:
 		virtual ~Event() = default;
 
+		virtual EventType GetEventType() const = 0;
+		virtual int GetEventCategoryFlags() const = 0;
+
+		virtual const char *GetName() const = 0;
+
 		virtual inline std::string ToString() const { return GetName(); }
 
 		inline bool IsInCategory(EventCategory category) const { return GetEventCategoryFlags() & category; }
@@ -48,11 +53,6 @@ namespace Cobweb
 
 	protected:
 		Event() = default;
-
-		virtual EventType GetEventType() const = 0;
-		virtual int GetEventCategoryFlags() const = 0;
-
-		virtual const char *GetName() const = 0;
 
 	private:
 		bool m_Handled = false;
@@ -75,7 +75,7 @@ namespace Cobweb
 		~EventDispatcher() = default;
 
 		template <typename T>
-		inline bool Dispatch(EventFn<T> &func)
+		inline bool Dispatch(const EventFn<T> &func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
