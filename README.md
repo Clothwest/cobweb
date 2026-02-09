@@ -6,6 +6,10 @@
 
 ## Dependencies
 
+- [`premake`](https://github.com/premake/premake-core)
+
+- [`dxc`](https://github.com/microsoft/DirectXShaderCompiler)
+
 - [`spdlog`](https://github.com/gabime/spdlog) - **1.17.0**
 
 - [`glfw`](https://github.com/glfw/glfw) - **3.4**

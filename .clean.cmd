@@ -1,2 +1,2 @@
-premake5 clean
+.\Dependencies\Premake\premake5 clean
 pause

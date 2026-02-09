@@ -10,7 +10,7 @@ namespace Cobweb
 		WindowsInput() = default;
 		~WindowsInput() = default;
 
-	protected:
+	private:
 		bool IsKeyPressedImpl(int keyCode) const override;
 
 		float GetMouseXImpl() const override;

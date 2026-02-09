@@ -23,7 +23,7 @@ namespace Cobweb
 	protected:
 		Input() = default;
 
-	protected:
+	private:
 		virtual bool IsKeyPressedImpl(int keyCode) const = 0;
 
 		virtual float GetMouseXImpl() const = 0;
