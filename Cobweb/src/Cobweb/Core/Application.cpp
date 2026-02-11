@@ -6,6 +6,10 @@
 // temporary
 
 #include "Cobweb/Renderer/Shader.h"
+#include "Cobweb/Renderer/IndexBuffer.h"
+#include "Cobweb/Renderer/VertexBuffer.h"
+#include "Cobweb/Renderer/VertexArray.h"
+#include "Cobweb/Renderer/UniformBuffer.h"
 
 #include <glad/glad.h>
 
@@ -35,36 +39,27 @@ namespace Cobweb
 
 	void Application::Run()
 	{
-		uint32_t vao;
-		glCreateVertexArrays(1, &vao);
-
-		uint32_t vbo;
-		glCreateBuffers(1, &vbo);
 		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+			 0.0f,  0.0f, 0.0f,
+			 1.0f,  0.0f, 0.0f,
+			 0.0f,  1.0f, 0.0f,
 		};
-		glNamedBufferData(vbo, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		Ref<VertexBuffer> vbo = VertexBuffer::Create(vertices, sizeof(vertices));
+		vbo->SetLayout({
+			{ ShaderDataType::Float3, "Pos" }
+			});
 
-		uint32_t ibo;
-		glCreateBuffers(1, &ibo);
 		uint32_t indices[] = {
 			0, 1, 2
 		};
-		glNamedBufferData(ibo, sizeof(indices), indices, GL_STATIC_DRAW);
+		Ref<IndexBuffer> ibo = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
-		glEnableVertexArrayAttrib(vao, 0);
-		glVertexArrayAttribFormat(vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
-		glVertexArrayVertexBuffer(vao, 0, vbo, 0, 3 * sizeof(float));
-		glVertexArrayAttribBinding(vao, 0, 0);
+		Ref<VertexArray> vao = VertexArray::Create();
+		vao->AddVertexBuffer(vbo);
+		vao->SetIndexBuffer(ibo);
 
-		glVertexArrayElementBuffer(vao, ibo);
-
-		glCreateBuffers(1, &m_UBO);
-		glNamedBufferStorage(m_UBO, 4 * sizeof(float), glm::value_ptr(m_Color), GL_DYNAMIC_STORAGE_BIT);
-		glNamedBufferSubData(m_UBO, 0, 4 * sizeof(float), glm::value_ptr(m_Color));
-		glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_UBO);
+		Ref<UniformBuffer> ubo = UniformBuffer::Create(4 * sizeof(float), 0);
+		ubo->SetData(glm::value_ptr(m_Color), 4 * sizeof(float));
 
 		Ref<Shader> shader = Shader::Create("Base", "assets/shaders/.bin/Base_vertex.spv", "assets/shaders/.bin/Base_pixel.spv");
 
@@ -74,9 +69,9 @@ namespace Cobweb
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			shader->Bind();
-			glNamedBufferSubData(m_UBO, 0, 4 * sizeof(float), glm::value_ptr(m_Color));
-			glBindVertexArray(vao);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			ubo->SetData(glm::value_ptr(m_Color), 4 * sizeof(float));
+			vao->Bind();
+			glDrawElements(GL_TRIANGLES, ibo->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer *layer : m_Layers)
 				layer->OnUpdate();

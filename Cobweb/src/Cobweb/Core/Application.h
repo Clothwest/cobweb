@@ -40,7 +40,6 @@ namespace Cobweb
 		ImGuiLayer *m_ImGuiLayer = new ImGuiLayer();
 
 		glm::vec4 m_Color = glm::vec4(1.0f);
-		uint32_t m_UBO;
 
 	private:
 		static Application *s_Instance;
