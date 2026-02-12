@@ -42,7 +42,7 @@ namespace Cobweb
 		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnImGuiRender()
+	void ImGuiLayer::OnImGuiDraw()
 	{
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);

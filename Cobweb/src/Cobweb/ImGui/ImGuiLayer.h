@@ -12,7 +12,7 @@ namespace Cobweb
 
 		void OnAttach() override;
 		void OnDetach() override;
-		void OnImGuiRender() override;
+		void OnImGuiDraw() override;
 		void OnEvent(Event &e) override;
 
 		void Begin();

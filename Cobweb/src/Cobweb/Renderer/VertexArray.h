@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Cobweb/Renderer/VErtexBuffer.h"
-#include "Cobweb/Renderer/IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 #include "Cobweb/Core/Core.h"
 

@@ -39,8 +39,6 @@ namespace Cobweb
 		LayerStack m_Layers;
 		ImGuiLayer *m_ImGuiLayer = new ImGuiLayer();
 
-		glm::vec4 m_Color = glm::vec4(1.0f);
-
 	private:
 		static Application *s_Instance;
 	};
