@@ -5,8 +5,8 @@ SandboxLayer::SandboxLayer()
 {
 	float vertices[] = {
 		0.0f, 0.0f, 0.0f,
-		0.0f, 600.0f, 0.0f,
-		600.0f, 0.0f, 0.0f
+		0.0f, 200.0f, 0.0f,
+		200.0f, 0.0f, 0.0f
 	};
 	m_VBO = Cobweb::VertexBuffer::Create(vertices, sizeof(vertices));
 	m_VBO->SetLayout({
@@ -22,19 +22,21 @@ SandboxLayer::SandboxLayer()
 	m_VAO->AddVertexBuffer(m_VBO);
 	m_VAO->SetIndexBuffer(m_IBO);
 
-	m_UBO = Cobweb::UniformBuffer::Create(4 * sizeof(float), 1);
+	m_UBO = Cobweb::UniformBuffer::Create(4 * sizeof(float), 10);
 
 	m_Shader = Cobweb::Shader::Create("Base", "assets/shaders/.bin/Base_vertex.spv", "assets/shaders/.bin/Base_pixel.spv");
-
-	m_Camera.SetPosition({ -100.0f, -100.0f, 0.0f });
 }
 
-void SandboxLayer::OnUpdate()
+void SandboxLayer::OnUpdate(Cobweb::TimeStep ts)
 {
+	//CW_TRACE(ts);
+
 	m_Camera.SetRotation(m_CameraRotation);
+	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, 0.0f, 0.0f)) * glm::rotate(glm::mat4(1.0f), glm::radians(45.0f), glm::vec3(0.0f, 0.0f, -1.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(2.0f));
+
 	Cobweb::Renderer::BeginScene(m_Camera);
 	m_UBO->SetData(glm::value_ptr(m_Color), 4 * sizeof(float));
-	Cobweb::Renderer::Submit(m_Shader, m_VAO);
+	Cobweb::Renderer::Submit(m_Shader, m_VAO, transform);
 	Cobweb::Renderer::EndScene();
 }
 

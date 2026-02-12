@@ -9,21 +9,25 @@ struct PSInput
 	[[vk::location(0)]] float3 Pos : POSITIONT;
 };
 
-cbuffer Mat : register(b0)
+cbuffer ViewProjection : register(b0)
 {
 	float4x4 u_ViewProjection;
-};
+}
 
-cbuffer Uniform : register(b1)
+cbuffer Transform : register(b1)
+{
+	float4x4 u_Transform;
+}
+
+cbuffer Uniform : register(b10)
 {
 	float4 u_Color;
-};
+}
 
 PSInput VSMain(VSInput input)
 {
 	PSInput output;
-	//output.a_Pos = mul(u_ViewProjection, mul(u_Model, float4(input.Pos, 1.0f)));
-	output.a_Pos = mul(u_ViewProjection, float4(input.Pos, 1.0f));
+	output.a_Pos = mul(u_ViewProjection, mul(u_Transform, float4(input.Pos, 1.0f)));
 	output.Pos = input.Pos;
 	return output;
 }

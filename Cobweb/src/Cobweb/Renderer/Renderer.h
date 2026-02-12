@@ -7,6 +7,8 @@
 
 #include "Cobweb/Core/Core.h"
 
+#include <glm/glm.hpp>
+
 namespace Cobweb
 {
 	class Renderer
@@ -20,7 +22,7 @@ namespace Cobweb
 		static void BeginScene(const OrthographicCamera &camera);
 		static void EndScene();
 
-		static void Submit(const Ref<Shader> &shader, const Ref<VertexArray> &vao);
+		static void Submit(const Ref<Shader> &shader, const Ref<VertexArray> &vao, const glm::mat4 &transform = glm::mat4(1.0f));
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
@@ -31,6 +33,7 @@ namespace Cobweb
 		struct SceneData
 		{
 			Ref<UniformBuffer> CameraUBO = UniformBuffer::Create(sizeof(glm::mat4), 0);
+			Ref<UniformBuffer> TransformUBO = UniformBuffer::Create(sizeof(glm::mat4), 1);
 		};
 
 		static Scope<SceneData> s_SceneData;

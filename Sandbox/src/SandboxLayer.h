@@ -8,7 +8,7 @@ public:
 	SandboxLayer();
 	~SandboxLayer() = default;
 
-	void OnUpdate() override;
+	void OnUpdate(Cobweb::TimeStep ts) override;
 	void OnImGuiDraw() override;
 	void OnEvent(Cobweb::Event &e) override;
 
@@ -24,7 +24,7 @@ private:
 
 	Cobweb::Ref<Cobweb::Shader> m_Shader;
 
-	Cobweb::OrthographicCamera m_Camera = Cobweb::OrthographicCamera(-1280.0f, 1280.0f, -720.0f, 720.0f);
+	Cobweb::OrthographicCamera m_Camera = Cobweb::OrthographicCamera(-640.0f, 640.0f, -360.0f, 360.0f);
 
 	glm::vec4 m_Color = glm::vec4(1.0f);
 	float m_CameraRotation = 0.0f;

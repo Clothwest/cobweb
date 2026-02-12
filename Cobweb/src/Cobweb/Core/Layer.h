@@ -1,5 +1,7 @@
 #pragma once
 
+#include "TimeStep.h"
+
 #include "Cobweb/Events/Events.h"
 
 #include <string>
@@ -18,7 +20,7 @@ namespace Cobweb
 
 		virtual inline void OnAttach() {}
 		virtual inline void OnDetach() {}
-		virtual inline void OnUpdate() {}
+		virtual inline void OnUpdate(TimeStep ts) {}
 		virtual inline void OnImGuiDraw() {}
 		virtual inline void OnEvent(Event &e) {}
 

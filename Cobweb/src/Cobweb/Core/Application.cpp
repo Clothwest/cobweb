@@ -1,9 +1,12 @@
 #include "cwpch.h"
 #include "Application.h"
 
-#include "Log.h"
+#include "TimeStep.h"
 
 #include "Cobweb/Renderer/Renderer.h"
+
+// temporary
+#include <GLFW/glfw3.h>
 
 namespace Cobweb
 {
@@ -23,6 +26,8 @@ namespace Cobweb
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(CW_BIND_FN(Application::OnEvent));
 
+		m_LastFrameTime = (float)glfwGetTime();
+
 		Renderer::Init();
 
 		m_Layers.PushOverlay(m_ImGuiLayer);
@@ -36,11 +41,16 @@ namespace Cobweb
 	{
 		while (m_Running)
 		{
+			float time = (float)glfwGetTime();
+			TimeStep timeStep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
+
 			RenderCommand::SetClearColor({ 0.8f, 0.2f, 0.5f, 1.0f });
 			RenderCommand::Clear();
 
 			for (Layer *layer : m_Layers)
-				layer->OnUpdate();
+				layer->OnUpdate(timeStep);
 
 			m_ImGuiLayer->Begin();
 			for (Layer *layer : m_Layers)
@@ -53,8 +63,6 @@ namespace Cobweb
 
 	void Application::OnEvent(Event &e)
 	{
-		//CW_CORE_TRACE(e);
-
 		EventDispatcher dispatcher(e);
 
 		dispatcher.Dispatch<WindowClosedEvent>(CW_BIND_FN(Application::OnWindowClosed));

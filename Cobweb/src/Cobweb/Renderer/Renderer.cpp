@@ -26,10 +26,11 @@ namespace Cobweb
 	{
 	}
 
-	void Renderer::Submit(const Ref<Shader> &shader, const Ref<VertexArray> &vao)
+	void Renderer::Submit(const Ref<Shader> &shader, const Ref<VertexArray> &vao, const glm::mat4 &transform)
 	{
 		shader->Bind();
 		vao->Bind();
+		s_SceneData->TransformUBO->SetData(glm::value_ptr(transform), sizeof(glm::mat4));
 		RenderCommand::DrawIndexed(vao);
 	}
 }

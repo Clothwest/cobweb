@@ -30,6 +30,7 @@ namespace Cobweb
 
 	private:
 		bool m_Running = true;
+		float m_LastFrameTime;
 
 		Scope<Window> m_Window;
 

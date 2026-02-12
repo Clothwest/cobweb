@@ -5,6 +5,7 @@
 #include "Cobweb/Core/Log.h"
 
 #include <string>
+#include <string_view>
 #include <sstream>
 #include <utility>
 #include <functional>
@@ -92,10 +93,10 @@ namespace Cobweb
 }
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<Cobweb::Event, T>, char>> : public formatter<std::string>
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<Cobweb::Event, T>, char>> : public formatter<std::string_view>
 {
 	format_context::iterator format(const T &e, format_context &ctx) const
 	{
-		return formatter<std::string>::format(e.ToString(), ctx);
+		return formatter<std::string_view>::format(e.ToString(), ctx);
 	}
 };
