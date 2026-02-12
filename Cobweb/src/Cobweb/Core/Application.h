@@ -5,9 +5,6 @@
 #include "LayerStack.h"
 #include "Cobweb/ImGui/ImGuiLayer.h"
 
-// temporary
-#include <glm/glm.hpp>
-
 namespace Cobweb
 {
 	class Application
@@ -34,7 +31,7 @@ namespace Cobweb
 	private:
 		bool m_Running = true;
 
-		Scope<Window> m_Window = Window::Create();
+		Scope<Window> m_Window;
 
 		LayerStack m_Layers;
 		ImGuiLayer *m_ImGuiLayer = new ImGuiLayer();

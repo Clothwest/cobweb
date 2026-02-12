@@ -10,6 +10,8 @@ namespace Cobweb
 		OpenGLRendererAPI() = default;
 		~OpenGLRendererAPI() = default;
 
+		void Init() const override;
+
 		void Clear() const override;
 
 		void DrawIndexed(const Ref<VertexArray> &vao) const override;

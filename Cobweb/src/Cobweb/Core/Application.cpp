@@ -3,10 +3,6 @@
 
 #include "Log.h"
 
-// temporary
-
-#include "Cobweb/Renderer/Shader.h"
-#include "Cobweb/Renderer/UniformBuffer.h"
 #include "Cobweb/Renderer/Renderer.h"
 
 namespace Cobweb
@@ -24,7 +20,10 @@ namespace Cobweb
 		CW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
+		m_Window = Window::Create();
 		m_Window->SetEventCallback(CW_BIND_FN(Application::OnEvent));
+
+		Renderer::Init();
 
 		m_Layers.PushOverlay(m_ImGuiLayer);
 	}

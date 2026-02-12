@@ -1,8 +1,6 @@
 #include "cwpch.h"
 #include "ImGuiLayer.h"
 
-//#include "Cobweb/Core/Application.h"
-
 #include "ImGuiBuild.h"
 
 #include <GLFW/glfw3.h>
@@ -45,7 +43,8 @@ namespace Cobweb
 	void ImGuiLayer::OnImGuiDraw()
 	{
 		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		if (show)
+			ImGui::ShowDemoWindow(&show);
 	}
 
 	void ImGuiLayer::OnEvent(Event &e)

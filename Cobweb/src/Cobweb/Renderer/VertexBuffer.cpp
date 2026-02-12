@@ -1,6 +1,8 @@
 #include "cwpch.h"
 #include "VertexBuffer.h"
 
+#include "Renderer.h"
+
 #include "Platform/OpenGL/OpenGLVertexBuffer.h"
 
 #include "Cobweb/Core/Log.h"
@@ -12,7 +14,13 @@ namespace Cobweb
 
 	Ref<VertexBuffer> VertexBuffer::Create(float *vertices, uint32_t size)
 	{
-		return CreateRef<OpenGLVertexBuffer>(vertices, size);
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
+		}
+
+		CW_CORE_ASSERT(false, "Unknown Renderer API!");
+		return nullptr;
 	}
 
 	BufferElement::BufferElement(ShaderDataType type, const std::string &name, bool normalized)

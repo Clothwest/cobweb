@@ -12,6 +12,7 @@
 #include "Cobweb/Renderer/Renderer.h"
 #include "Cobweb/Renderer/Shader.h"
 #include "Cobweb/Renderer/UniformBuffer.h"
+#include "Cobweb/Renderer/OrthographicCamera.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>

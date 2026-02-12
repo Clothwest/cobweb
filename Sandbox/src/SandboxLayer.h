@@ -24,5 +24,8 @@ private:
 
 	Cobweb::Ref<Cobweb::Shader> m_Shader;
 
+	Cobweb::OrthographicCamera m_Camera = Cobweb::OrthographicCamera(-1280.0f, 1280.0f, -720.0f, 720.0f);
+
 	glm::vec4 m_Color = glm::vec4(1.0f);
+	float m_CameraRotation = 0.0f;
 };

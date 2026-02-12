@@ -14,7 +14,7 @@ namespace Cobweb
 			case API::OpenGL: return CreateScope<OpenGLRendererAPI>();
 		}
 
-		CW_CORE_ASSERT(false, "Unknown Renderer API");
+		CW_CORE_ASSERT(false, "Unknown Renderer API!");
 		return nullptr;
 	}
 }

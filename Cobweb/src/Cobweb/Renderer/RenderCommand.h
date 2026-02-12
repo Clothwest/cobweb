@@ -9,6 +9,8 @@ namespace Cobweb
 	public:
 		~RenderCommand() = default;
 
+		static void Init();
+
 		static void Clear();
 
 		static void DrawIndexed(const Ref<VertexArray> &vao);

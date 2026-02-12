@@ -5,6 +5,11 @@ namespace Cobweb
 {
 	Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
 
+	void RenderCommand::Init()
+	{
+		s_RendererAPI->Init();
+	}
+
 	void RenderCommand::Clear()
 	{
 		s_RendererAPI->Clear();

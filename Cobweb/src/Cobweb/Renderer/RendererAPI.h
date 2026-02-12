@@ -20,8 +20,12 @@ namespace Cobweb
 	public:
 		static Scope<RendererAPI> Create();
 
+		static inline API GetAPI() { return s_API; }
+
 	public:
 		virtual ~RendererAPI() = default;
+
+		virtual void Init() const = 0;
 
 		virtual void Clear() const = 0;
 
