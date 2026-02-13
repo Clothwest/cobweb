@@ -10,7 +10,7 @@ namespace Cobweb
 	class OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string &name, const std::string &vertexPath, const std::string &pixelPath);
+		OpenGLShader(const std::string &name, const std::string &vertPath, const std::string &fragPath);
 		~OpenGLShader();
 
 		void Bind() const override;
@@ -21,8 +21,8 @@ namespace Cobweb
 	private:
 		std::vector<char> ReadFile(const std::string &filePath);
 
-		uint32_t CreateShader(uint32_t type, const std::string &source);
-		uint32_t CreateProgram(uint32_t vertexShader, uint32_t pixelShader);
+		uint32_t CreateShader(uint32_t type, const std::string &filePath);
+		uint32_t CreateProgram(uint32_t vertShader, uint32_t fragShader);
 
 	private:
 		uint32_t m_RendererID;

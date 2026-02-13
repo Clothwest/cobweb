@@ -27,7 +27,7 @@ SandboxLayer::SandboxLayer()
 
 	m_UBO = Cobweb::UniformBuffer::Create(4 * sizeof(float), 2);
 
-	m_Shader = Cobweb::Shader::Create("Base", "assets/shaders/.bin/Base_vert.spv", "assets/shaders/.bin/Base_frag.spv");
+	m_ShaderLibrary.Add(Cobweb::Shader::Create("Base", "assets/shaders/.bin/Base_vert.spv", "assets/shaders/.bin/Base_frag.spv"));
 
 	m_Texture = Cobweb::Texture2D::Create("assets/textures/preview.jpg");
 }
@@ -36,13 +36,15 @@ void SandboxLayer::OnUpdate(Cobweb::TimeStep ts)
 {
 	//CW_TRACE(ts);
 
+	Cobweb::Ref<Cobweb::Shader> shader = m_ShaderLibrary.Get("Base");
+
 	m_Camera.SetRotation(m_CameraRotation);
 	//glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, 0.0f, 0.0f)) * glm::rotate(glm::mat4(1.0f), glm::radians(45.0f), glm::vec3(0.0f, 0.0f, -1.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(2.0f));
 
 	Cobweb::Renderer::BeginScene(m_Camera);
 	m_UBO->SetData(glm::value_ptr(m_Color), 4 * sizeof(float));
 	m_Texture->Bind(10);
-	Cobweb::Renderer::Submit(m_Shader, m_VAO);
+	Cobweb::Renderer::Submit(shader, m_VAO);
 	Cobweb::Renderer::EndScene();
 }
 

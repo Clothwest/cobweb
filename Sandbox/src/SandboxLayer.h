@@ -22,7 +22,7 @@ private:
 
 	Cobweb::Ref<Cobweb::UniformBuffer> m_UBO;
 
-	Cobweb::Ref<Cobweb::Shader> m_Shader;
+	Cobweb::ShaderLibrary m_ShaderLibrary;
 
 	Cobweb::Ref<Cobweb::Texture2D> m_Texture;
 

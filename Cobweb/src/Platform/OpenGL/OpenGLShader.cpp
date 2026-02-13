@@ -5,11 +5,11 @@
 
 namespace Cobweb
 {
-	OpenGLShader::OpenGLShader(const std::string &name, const std::string &vertexPath, const std::string &pixelPath)
+	OpenGLShader::OpenGLShader(const std::string &name, const std::string &vertPath, const std::string &fragPath)
 		: m_Name(name)
 	{
-		uint32_t vertexShader = CreateShader(GL_VERTEX_SHADER, vertexPath);
-		uint32_t pixelShader = CreateShader(GL_FRAGMENT_SHADER, pixelPath);
+		uint32_t vertexShader = CreateShader(GL_VERTEX_SHADER, vertPath);
+		uint32_t pixelShader = CreateShader(GL_FRAGMENT_SHADER, fragPath);
 		m_RendererID = CreateProgram(vertexShader, pixelShader);
 	}
 
@@ -77,11 +77,11 @@ namespace Cobweb
 		return shader;
 	}
 
-	uint32_t OpenGLShader::CreateProgram(uint32_t vertexShader, uint32_t pixelShader)
+	uint32_t OpenGLShader::CreateProgram(uint32_t vertShader, uint32_t fragShader)
 	{
 		uint32_t program = glCreateProgram();
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, pixelShader);
+		glAttachShader(program, vertShader);
+		glAttachShader(program, fragShader);
 		glLinkProgram(program);
 
 		int success;
@@ -97,8 +97,8 @@ namespace Cobweb
 			CW_CORE_ASSERT(false, "Failed to link program!");
 		}
 
-		glDeleteShader(vertexShader);
-		glDeleteShader(pixelShader);
+		glDeleteShader(vertShader);
+		glDeleteShader(fragShader);
 
 		return program;
 	}
