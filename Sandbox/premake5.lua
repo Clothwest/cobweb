@@ -8,7 +8,7 @@ project "Sandbox"
 		"src/**.h",
 		"src/**.cpp",
 
-		"assets/shaders/**.hlsl"
+		"assets/shaders/**.glsl"
 	}
 
 	includedirs
@@ -34,19 +34,19 @@ project "Sandbox"
 	filter "configurations:Dist"
 		defines "CW_DIST"
 
-	filter "files:**.hlsl"
-		local dxcPath = "%{wks.location}/Dependencies/DXC/dxc.exe"
-		local dxcCommand = ' -spirv -O3 -fvk-use-gl-layout '
+	filter "files:**.glsl"
+		local glslc = "%{wks.location}/Dependencies/Glslc/glslc.exe"
 
 		local shaderOutputDir = "%{file.directory}/.bin/"
-		local vsPath = shaderOutputDir .. "%{file.basename}_vertex.spv"
-		local psPath = shaderOutputDir .. "%{file.basename}_pixel.spv"
+		local vsPath = shaderOutputDir .. "%{file.basename}_vert.spv"
+		local fsPath = shaderOutputDir .. "%{file.basename}_frag.spv"
 
-		buildoutputs { vsPath, psPath }
+		buildoutputs { vsPath, fsPath }
 
-		buildcommands {
+		buildcommands
+		{
 			"{MKDIR} " .. shaderOutputDir,
 
-			dxcPath .. dxcCommand .. '-T vs_6_0 -E VSMain %{file.relpath} -Fo ' .. vsPath,
-			dxcPath .. dxcCommand .. '-T ps_6_0 -E PSMain %{file.relpath} -Fo ' .. psPath
+			glslc .. ' -fshader-stage=vert %{file.relpath} -DVERTEX_SHADER -o ' .. vsPath,
+			glslc .. ' -fshader-stage=frag %{file.relpath} -DFRAGMENT_SHADER -o ' .. fsPath
 		}

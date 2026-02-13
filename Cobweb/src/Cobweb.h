@@ -15,6 +15,7 @@
 #include "Cobweb/Renderer/Renderer.h"
 
 #include "Cobweb/Renderer/Shader.h"
+#include "Cobweb/Renderer/Texture.h"
 #include "Cobweb/Renderer/VertexArray.h"
 #include "Cobweb/Renderer/VertexBuffer.h"
 #include "Cobweb/Renderer/IndexBuffer.h"

@@ -6,17 +6,19 @@
 
 ## Dependencies
 
-- [`premake`](https://github.com/premake/premake-core)
+- [premake](https://github.com/premake/premake-core)
 
-- [`dxc`](https://github.com/microsoft/DirectXShaderCompiler)
+- **glslc** from [vulkan](https://www.vulkan.org/)
 
-- [`spdlog`](https://github.com/gabime/spdlog) - **1.17.0**
+- [spdlog](https://github.com/gabime/spdlog) - **1.17.0**
 
-- [`glfw`](https://github.com/glfw/glfw) - **3.4**
+- [glfw](https://github.com/glfw/glfw) - **3.4**
 
-- [`glad`](https://glad.dav1d.de/)
+- [glad](https://glad.dav1d.de/)
 
-- [`glm`](https://github.com/g-truc/glm) - **1.0.3**
+- [glm](https://github.com/g-truc/glm) - **1.0.3**
+
+- [std_image](https://github.com/nothings/stb)
 
 ## NOTICE
 

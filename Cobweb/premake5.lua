@@ -20,7 +20,8 @@ project "Cobweb"
 		IncludeDirs["GLFW"],
 		IncludeDirs["Glad"],
 		IncludeDirs["ImGui"],
-		IncludeDirs["GLM"]
+		IncludeDirs["GLM"],
+		IncludeDirs["StbImage"]
 	}
 
 	defines
@@ -34,7 +35,8 @@ project "Cobweb"
 
 		"GLFW",
 		"Glad",
-		"ImGui"
+		"ImGui",
+		"StbImage"
 	}
 
 	filter "configurations:Debug"

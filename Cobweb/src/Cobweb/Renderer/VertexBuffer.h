@@ -52,8 +52,8 @@ namespace Cobweb
 
 	private:
 		std::vector<BufferElement> m_Elements;
-		uint32_t m_Stride;
-		uint32_t m_Count;
+		uint32_t m_Stride = 0;
+		uint32_t m_Count = 0;
 	};
 
 	class VertexBuffer

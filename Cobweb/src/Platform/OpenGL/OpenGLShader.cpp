@@ -47,24 +47,12 @@ namespace Cobweb
 
 	uint32_t OpenGLShader::CreateShader(uint32_t type, const std::string &filePath)
 	{
-		const char *entryPoint = nullptr;
-		switch (type)
-		{
-			case GL_VERTEX_SHADER:
-				entryPoint = "VSMain";
-				break;
-			case GL_FRAGMENT_SHADER:
-				entryPoint = "PSMain";
-				break;
-		}
-		CW_CORE_ASSERT(entryPoint, "Unknown shader type!");
-
 		std::vector<char> spirvCode = ReadFile(filePath);
 		CW_CORE_ASSERT(!spirvCode.empty(), "Code is empty!");
 
 		uint32_t shader = glCreateShader(type);
 		glShaderBinary(1, &shader, GL_SHADER_BINARY_FORMAT_SPIR_V, spirvCode.data(), (int)(spirvCode.size()));
-		glSpecializeShader(shader, entryPoint, 0, nullptr, nullptr);
+		glSpecializeShader(shader, "main", 0, nullptr, nullptr);
 
 		int success;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
