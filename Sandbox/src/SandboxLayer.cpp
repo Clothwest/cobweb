@@ -3,15 +3,24 @@
 SandboxLayer::SandboxLayer()
 	: Layer("SandboxLayer")
 {
-	float vertices[] = {
-		-200.0f, -200.0f, 0.0f, 0.0f, 0.0f,
-		 200.0f, -200.0f, 0.0f, 1.0f, 0.0f,
-		 200.0f,  200.0f, 0.0f, 1.0f, 1.0f,
-		-200.0f,  200.0f, 0.0f, 0.0f, 1.0f
+	float pos[] = {
+		-200.0f, -200.0f, 0.0f,
+		 200.0f, -200.0f, 0.0f,
+		 200.0f,  200.0f, 0.0f,
+		-200.0f,  200.0f, 0.0f
 	};
-	m_VBO = Cobweb::VertexBuffer::Create(vertices, sizeof(vertices));
-	m_VBO->SetLayout({
+	float texCoord[] = {
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f
+	};
+	Cobweb::Ref<Cobweb::VertexBuffer> posVBO = Cobweb::VertexBuffer::Create(pos, sizeof(pos));
+	posVBO->SetLayout({
 		{ Cobweb::ShaderDataType::Float3, "Pos" },
+		});
+	Cobweb::Ref<Cobweb::VertexBuffer> texCoordVBO = Cobweb::VertexBuffer::Create(texCoord, sizeof(texCoord));
+	texCoordVBO->SetLayout({
 		{ Cobweb::ShaderDataType::Float2, "TexCoord" }
 		});
 
@@ -19,13 +28,12 @@ SandboxLayer::SandboxLayer()
 		0, 1, 2,
 		2, 3, 0
 	};
-	m_IBO = Cobweb::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+	Cobweb::Ref<Cobweb::IndexBuffer> ibo = Cobweb::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 	m_VAO = Cobweb::VertexArray::Create();
-	m_VAO->AddVertexBuffer(m_VBO);
-	m_VAO->SetIndexBuffer(m_IBO);
-
-	m_UBO = Cobweb::UniformBuffer::Create(4 * sizeof(float), 2);
+	m_VAO->AddVertexBuffer(posVBO);
+	m_VAO->AddVertexBuffer(texCoordVBO);
+	m_VAO->SetIndexBuffer(ibo);
 
 	m_ShaderLibrary.Add(Cobweb::Shader::Create("Base", "assets/shaders/.bin/Base_vert.spv", "assets/shaders/.bin/Base_frag.spv"));
 
@@ -36,13 +44,11 @@ void SandboxLayer::OnUpdate(Cobweb::TimeStep ts)
 {
 	//CW_TRACE(ts);
 
+	m_CameraController.OnUpdate(ts);
+
 	Cobweb::Ref<Cobweb::Shader> shader = m_ShaderLibrary.Get("Base");
 
-	m_Camera.SetRotation(m_CameraRotation);
-	//glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, 0.0f, 0.0f)) * glm::rotate(glm::mat4(1.0f), glm::radians(45.0f), glm::vec3(0.0f, 0.0f, -1.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(2.0f));
-
-	Cobweb::Renderer::BeginScene(m_Camera);
-	m_UBO->SetData(glm::value_ptr(m_Color), 4 * sizeof(float));
+	Cobweb::Renderer::BeginScene(m_CameraController.GetCamera());
 	m_Texture->Bind(10);
 	Cobweb::Renderer::Submit(shader, m_VAO);
 	Cobweb::Renderer::EndScene();
@@ -50,14 +56,18 @@ void SandboxLayer::OnUpdate(Cobweb::TimeStep ts)
 
 void SandboxLayer::OnImGuiDraw()
 {
-	ImGui::Begin("Color");
-	ImGui::ColorEdit4("Triangle", glm::value_ptr(m_Color));
-	ImGui::SliderFloat("Rotation", &m_CameraRotation, -180.0f, 180.0f);
+	ImGui::Begin("Data");
+
+	const glm::vec3 &cameraPos = m_CameraController.GetCamera().GetPosition();
+	ImGui::Text("Camera Pos: (%.1f, %.1f)", cameraPos.x, cameraPos.y);
+
 	ImGui::End();
 }
 
 void SandboxLayer::OnEvent(Cobweb::Event &e)
 {
+	m_CameraController.OnEvent(e);
+
 	Cobweb::EventDispatcher dispatcher(e);
 
 	dispatcher.Dispatch<Cobweb::MouseButtonPressedEvent>(CW_BIND_FN(SandboxLayer::OnMouseButtonPressed));
@@ -65,7 +75,5 @@ void SandboxLayer::OnEvent(Cobweb::Event &e)
 
 bool SandboxLayer::OnMouseButtonPressed(Cobweb::MouseButtonPressedEvent &e)
 {
-	if (e.GetMouseButton() == CW_MOUSE_BUTTON_RIGHT)
-		m_Color = m_Color == glm::vec4(0.0f) ? glm::vec4(1.0f) : glm::vec4(0.0f);
 	return false;
 }

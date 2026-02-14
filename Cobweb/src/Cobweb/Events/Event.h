@@ -79,7 +79,7 @@ namespace Cobweb
 		template <typename T>
 		inline bool Dispatch(const EventFn<T> &func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType())
+			if (!m_Event.m_Handled && m_Event.GetEventType() == T::GetStaticType())
 			{
 				m_Event.m_Handled = func(*(T *)&m_Event);
 				return true;

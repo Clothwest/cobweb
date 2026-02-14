@@ -27,6 +27,7 @@ namespace Cobweb
 
 	private:
 		bool OnWindowClosed(WindowClosedEvent &e);
+		bool OnWindowResized(WindowResizedEvent &e);
 
 	private:
 		bool m_Running = true;

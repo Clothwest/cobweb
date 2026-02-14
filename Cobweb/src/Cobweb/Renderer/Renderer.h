@@ -6,6 +6,7 @@
 #include "UniformBuffer.h"
 
 #include "Cobweb/Core/Core.h"
+#include "Cobweb/Events/Events.h"
 
 #include <glm/glm.hpp>
 
@@ -18,6 +19,8 @@ namespace Cobweb
 
 		static void Init();
 		static void ShutDown();
+
+		static bool OnWindowResized(WindowResizedEvent &e);
 
 		static void BeginScene(const OrthographicCamera &camera);
 		static void EndScene();

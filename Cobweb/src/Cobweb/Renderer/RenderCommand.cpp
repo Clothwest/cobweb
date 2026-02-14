@@ -10,18 +10,23 @@ namespace Cobweb
 		s_RendererAPI->Init();
 	}
 
-	void RenderCommand::Clear()
-	{
-		s_RendererAPI->Clear();
-	}
-
 	void RenderCommand::DrawIndexed(const Ref<VertexArray> &vao)
 	{
 		s_RendererAPI->DrawIndexed(vao);
 	}
 
+	void RenderCommand::Clear()
+	{
+		s_RendererAPI->Clear();
+	}
+
 	void RenderCommand::SetClearColor(const glm::vec4 &color)
 	{
 		s_RendererAPI->SetClearColor(color);
+	}
+
+	void RenderCommand::SetViewport(int width, int height)
+	{
+		s_RendererAPI->SetViewport(width, height);
 	}
 }

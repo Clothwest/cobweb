@@ -66,6 +66,7 @@ namespace Cobweb
 		EventDispatcher dispatcher(e);
 
 		dispatcher.Dispatch<WindowClosedEvent>(CW_BIND_FN(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowResizedEvent>(CW_BIND_FN(Application::OnWindowResized));
 
 		for (auto it = m_Layers.rbegin(); it != m_Layers.rend(); it++)
 		{
@@ -89,5 +90,12 @@ namespace Cobweb
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResized(WindowResizedEvent &e)
+	{
+		Renderer::OnWindowResized(e);
+
+		return false;
 	}
 }

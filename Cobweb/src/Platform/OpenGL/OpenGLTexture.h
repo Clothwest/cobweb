@@ -14,7 +14,7 @@ namespace Cobweb
 		inline int GetHeight() const override { return m_Height; }
 		inline std::pair<int, int> GetSize() const override { return { m_Width, m_Height }; }
 
-		void Bind(uint32_t slot = 0) const override;
+		void Bind(uint32_t slot = 10) const override;
 
 	private:
 		uint32_t m_RendererID;

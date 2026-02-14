@@ -22,6 +22,7 @@
 #include "Cobweb/Renderer/UniformBuffer.h"
 
 #include "Cobweb/Renderer/OrthographicCamera.h"
+#include "Cobweb/Renderer/OrthographicCameraController.h"
 // --
 
 #include <glm/glm.hpp>

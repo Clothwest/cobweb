@@ -27,11 +27,10 @@ namespace Cobweb
 
 		virtual void Init() const = 0;
 
-		virtual void Clear() const = 0;
-
 		virtual void DrawIndexed(const Ref<VertexArray> &vao) const = 0;
-		
+		virtual void Clear() const = 0;
 		virtual void SetClearColor(const glm::vec4 &color) const = 0;
+		virtual void SetViewport(int width, int height) const = 0;
 
 	protected:
 		RendererAPI() = default;

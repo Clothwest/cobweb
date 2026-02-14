@@ -17,17 +17,10 @@ private:
 
 private:
 	Cobweb::Ref<Cobweb::VertexArray> m_VAO;
-	Cobweb::Ref<Cobweb::VertexBuffer> m_VBO;
-	Cobweb::Ref<Cobweb::IndexBuffer> m_IBO;
-
-	Cobweb::Ref<Cobweb::UniformBuffer> m_UBO;
 
 	Cobweb::ShaderLibrary m_ShaderLibrary;
 
 	Cobweb::Ref<Cobweb::Texture2D> m_Texture;
 
-	Cobweb::OrthographicCamera m_Camera = Cobweb::OrthographicCamera(-640.0f, 640.0f, -360.0f, 360.0f);
-
-	glm::vec4 m_Color = glm::vec4(1.0f);
-	float m_CameraRotation = 0.0f;
+	Cobweb::OrthographicCameraController m_CameraController = Cobweb::OrthographicCameraController(-640.0f, 640.0f, -360.0f, 360.0f, true);
 };

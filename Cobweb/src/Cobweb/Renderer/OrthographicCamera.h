@@ -16,6 +16,9 @@ namespace Cobweb
 		void SetRotation(float rotation);
 		inline float GetRotation() const { return m_Rotation; }
 
+		void SetProjectionMatrix(float left, float right, float bottom, float top);
+		void SetProjectionMatrix(const glm::vec4 &bound);
+
 		inline const glm::mat4 &GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		inline const glm::mat4 &GetViewMatrix() const { return m_ViewMatrix; }
 		inline const glm::mat4 &GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }

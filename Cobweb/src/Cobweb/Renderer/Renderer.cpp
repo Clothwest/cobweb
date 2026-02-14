@@ -17,6 +17,13 @@ namespace Cobweb
 		s_SceneData = nullptr;
 	}
 
+	bool Renderer::OnWindowResized(WindowResizedEvent &e)
+	{
+		const auto &[width, height] = e.GetDisplaySize();
+		RenderCommand::SetViewport(width, height);
+		return false;
+	}
+
 	void Renderer::BeginScene(const OrthographicCamera &camera)
 	{
 		s_SceneData->CameraUBO->SetData(glm::value_ptr(camera.GetViewProjectionMatrix()), sizeof(glm::mat4));

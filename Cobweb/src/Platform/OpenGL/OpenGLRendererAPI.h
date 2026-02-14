@@ -12,10 +12,9 @@ namespace Cobweb
 
 		void Init() const override;
 
-		void Clear() const override;
-
 		void DrawIndexed(const Ref<VertexArray> &vao) const override;
-
+		void Clear() const override;
 		void SetClearColor(const glm::vec4 &color) const override;
+		void SetViewport(int width, int height) const override;
 	};
 }
