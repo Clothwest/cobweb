@@ -42,8 +42,6 @@ SandboxLayer::SandboxLayer()
 
 void SandboxLayer::OnUpdate(Cobweb::TimeStep ts)
 {
-	//CW_TRACE(ts);
-
 	m_CameraController.OnUpdate(ts);
 
 	Cobweb::Ref<Cobweb::Shader> shader = m_ShaderLibrary.Get("Base");

@@ -13,6 +13,7 @@
 
 // -- Renderer --
 #include "Cobweb/Renderer/Renderer.h"
+#include "Cobweb/Renderer/Renderer2D.h"
 
 #include "Cobweb/Renderer/Shader.h"
 #include "Cobweb/Renderer/Texture.h"

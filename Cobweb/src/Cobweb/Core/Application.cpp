@@ -4,6 +4,7 @@
 #include "TimeStep.h"
 
 #include "Cobweb/Renderer/Renderer.h"
+#include "Cobweb/Renderer/Renderer2D.h"
 
 // temporary
 #include <GLFW/glfw3.h>
@@ -29,12 +30,15 @@ namespace Cobweb
 		m_LastFrameTime = (float)glfwGetTime();
 
 		Renderer::Init();
+		Renderer2D::Init();
 
 		m_Layers.PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
 	{
+		Renderer::ShutDown();
+		Renderer2D::ShutDown();
 	}
 
 	void Application::Run()

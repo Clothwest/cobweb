@@ -15,7 +15,8 @@ namespace Cobweb
 	class Renderer
 	{
 	public:
-		~Renderer() = default;
+		Renderer() = delete;
+		~Renderer() = delete;
 
 		static void Init();
 		static void ShutDown();
@@ -28,9 +29,6 @@ namespace Cobweb
 		static void Submit(const Ref<Shader> &shader, const Ref<VertexArray> &vao, const glm::mat4 &transform = glm::mat4(1.0f));
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
-
-	private:
-		Renderer() = default;
 
 	private:
 		struct SceneData
