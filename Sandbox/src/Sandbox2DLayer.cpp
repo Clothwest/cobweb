@@ -16,6 +16,9 @@ void Sandbox2DLayer::OnUpdate(Cobweb::TimeStep ts)
 	Cobweb::Renderer2D::BeginScene(m_CameraController.GetCamera());
 	Cobweb::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 100.0f, 100.0f }, m_Color[0]);
 	Cobweb::Renderer2D::DrawQuad({ 200.0f, 200.0f }, { 200.0f, 200.0f }, m_Color[1]);
+
+	Cobweb::Renderer2D::DrawQuad({ -200.0f, -200.0f }, { 100.0f, 100.0f }, m_Texture);
+
 	Cobweb::Renderer2D::EndScene();
 }
 

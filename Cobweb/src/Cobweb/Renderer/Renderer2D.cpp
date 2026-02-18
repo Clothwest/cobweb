@@ -9,15 +9,19 @@ namespace Cobweb
 	{
 		s_SceneData = CreateScope<SceneData>();
 
+		uint32_t textureData = 0xffffffff;
+		s_SceneData->DefaultTexture->SetData(&textureData, sizeof(uint32_t));
+
 		float vertices[] = {
-			0.0f, -1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			1.0f,  0.0f, 0.0f,
-			0.0f,  0.0f, 0.0f
+			0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+			1.0f,  0.0f, 0.0f, 1.0f, 1.0f,
+			0.0f,  0.0f, 0.0f, 0.0f, 1.0f
 		};
 		Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
 		vertexBuffer->SetLayout({
-			{ ShaderDataType::Float3, "a_Pos" }
+			{ ShaderDataType::Float3, "a_Pos" },
+			{ ShaderDataType::Float2, "a_TexCoord" }
 			});
 
 		uint32_t indices[] = {
@@ -57,7 +61,24 @@ namespace Cobweb
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
 		s_SceneData->UniformBuffer->SetData(glm::value_ptr(transform), sizeof(glm::mat4), sizeof(glm::mat4));
 
+		s_SceneData->DefaultTexture->Bind(10);
 		s_SceneData->UniformBuffer->SetData(glm::value_ptr(color), sizeof(glm::vec4), sizeof(glm::mat4) + sizeof(glm::mat4));
+
+		RenderCommand::DrawIndexed(s_SceneData->VertexArray);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture)
+	{
+		DrawQuad(glm::vec3(pos, 0.0f), size, texture);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture)
+	{
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
+		s_SceneData->UniformBuffer->SetData(glm::value_ptr(transform), sizeof(glm::mat4), sizeof(glm::mat4));
+
+		s_SceneData->UniformBuffer->SetData(glm::value_ptr(s_SceneData->DefaultColor), sizeof(glm::vec4), sizeof(glm::mat4) + sizeof(glm::mat4));
+		texture->Bind(10);
 
 		RenderCommand::DrawIndexed(s_SceneData->VertexArray);
 	}

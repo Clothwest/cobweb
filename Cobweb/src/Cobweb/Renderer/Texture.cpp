@@ -7,6 +7,17 @@
 
 namespace Cobweb
 {
+	Ref<Texture2D> Texture2D::Create(int width, int height)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(width, height);
+		}
+
+		CW_CORE_ASSERT(false, "Unknown Renderer API!");
+		return nullptr;
+	}
+
 	Ref<Texture2D> Texture2D::Create(const std::string &filePath)
 	{
 		switch (Renderer::GetAPI())

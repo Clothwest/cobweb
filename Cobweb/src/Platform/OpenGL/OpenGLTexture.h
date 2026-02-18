@@ -7,6 +7,7 @@ namespace Cobweb
 	class OpenGLTexture2D : public Texture2D
 	{
 	public:
+		OpenGLTexture2D(int width, int height);
 		OpenGLTexture2D(const std::string &filePath);
 		~OpenGLTexture2D();
 
@@ -15,6 +16,8 @@ namespace Cobweb
 		inline std::pair<int, int> GetSize() const override { return { m_Width, m_Height }; }
 
 		void Bind(uint32_t slot = 10) const override;
+
+		void SetData(const void *data, uint32_t size) const override;
 
 	private:
 		uint32_t m_RendererID;

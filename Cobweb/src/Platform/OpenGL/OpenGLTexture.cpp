@@ -7,6 +7,20 @@
 
 namespace Cobweb
 {
+	OpenGLTexture2D::OpenGLTexture2D(int width, int height)
+		: m_Width(width), m_Height(height)
+	{
+		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
+
+		glTextureStorage2D(m_RendererID, 1, GL_RGBA8, m_Width, m_Height);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	}
+
 	OpenGLTexture2D::OpenGLTexture2D(const std::string &filePath)
 	{
 		stbi_set_flip_vertically_on_load(1);
@@ -36,6 +50,9 @@ namespace Cobweb
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data);
@@ -49,5 +66,11 @@ namespace Cobweb
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);
+	}
+
+	void OpenGLTexture2D::SetData(const void *data, uint32_t size) const
+	{
+		CW_CORE_ASSERT(size == m_Width * m_Height * sizeof(uint32_t), "Invalid size!");
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	}
 }

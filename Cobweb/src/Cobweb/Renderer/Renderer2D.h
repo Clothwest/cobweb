@@ -5,6 +5,7 @@
 #include "VertexArray.h"
 #include "Shader.h"
 #include "UniformBuffer.h"
+#include "Texture.h"
 
 #include "Cobweb/Core/Core.h"
 
@@ -26,12 +27,17 @@ namespace Cobweb
 
 		static void DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const glm::vec4 &color);
 		static void DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const glm::vec4 &color);
+		static void DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture);
+		static void DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture);
 
 	private:
 		struct SceneData
 		{
+			glm::vec4 DefaultColor = glm::vec4(1.0f);
+			Ref<Texture2D> DefaultTexture = Texture2D::Create(1, 1);
+
 			Ref<VertexArray> VertexArray = VertexArray::Create();
-			Ref<Shader> Shader = Shader::Create("FlatColor", "assets/shaders/.bin/FlatColor_vert.spv", "assets/shaders/.bin/FlatColor_frag.spv");
+			Ref<Shader> Shader = Shader::Create("Texture", "assets/shaders/.bin/Texture_vert.spv", "assets/shaders/.bin/Texture_frag.spv");
 			Ref<UniformBuffer> UniformBuffer = UniformBuffer::Create(sizeof(glm::mat4) + sizeof(glm::mat4) + sizeof(glm::vec4), 0);
 		};
 

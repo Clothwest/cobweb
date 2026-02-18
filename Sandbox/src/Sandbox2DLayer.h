@@ -15,5 +15,7 @@ public:
 private:
 	Cobweb::OrthographicCameraController m_CameraController = { -640.0f, 640.0f, -360.0f, 360.0f, true };
 
+	Cobweb::Ref<Cobweb::Texture2D> m_Texture = Cobweb::Texture2D::Create("assets/textures/preview.jpg");
+
 	glm::vec4 m_Color[2];
 };

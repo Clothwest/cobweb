@@ -25,10 +25,13 @@ namespace Cobweb
 	class Texture2D : public Texture
 	{
 	public:
+		static Ref<Texture2D> Create(int width, int height);
 		static Ref<Texture2D> Create(const std::string &filePath);
 
 	public:
 		virtual ~Texture2D() = default;
+
+		virtual void SetData(const void *data, uint32_t size) const = 0;
 
 	protected:
 		Texture2D() = default;
