@@ -27,7 +27,7 @@ namespace Cobweb
 
 		glm::vec3 direction(0.0f);
 		if (glm::length(localDirection) > 0.0f)
-			direction = glm::rotate(glm::mat4(1.0f), glm::radians(m_CameraRotation), glm::vec3(0.0f, 0.0f, 1.0f)) * glm::vec4(glm::normalize(localDirection), 1.0f);
+			direction = glm::rotate(glm::mat4(1.0f), glm::radians(m_CameraRotation), glm::vec3(0.0f, 0.0f, 1.0f)) * glm::vec4(glm::normalize(localDirection), 0.0f);
 		m_CameraPosition += direction * (m_CameraTranslateSpeed / m_ZoomLevel) * ts.GetSeconds();
 		m_Camera.SetPosition(m_CameraPosition);
 
@@ -61,7 +61,7 @@ namespace Cobweb
 	bool OrthographicCameraController::OnWindowResized(WindowResizedEvent &e)
 	{
 		const auto &[width, height] = e.GetDisplaySize();
-		m_CameraBound = glm::vec4(-(float)width / 2.0f, (float)width / 2.0f, -(float)height / 2, (float)height / 2);
+		m_CameraBound = glm::vec4(-(float)width / 2.0f, (float)width / 2.0f, -(float)height / 2.0f, (float)height / 2.0f);
 		CalculateCameraProjectionMatrix();
 		return false;
 	}

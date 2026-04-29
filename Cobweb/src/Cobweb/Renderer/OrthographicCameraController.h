@@ -23,6 +23,8 @@ namespace Cobweb
 		void SetZoomLevel(float level);
 		inline float GetZoomLevel() const { return m_ZoomLevel; }
 
+		inline const glm::vec4 &GetBound() const { return m_CameraBound; }
+
 	private:
 		bool OnWindowResized(WindowResizedEvent &e);
 		bool OnMouseScrolled(MouseScrolledEvent &e);

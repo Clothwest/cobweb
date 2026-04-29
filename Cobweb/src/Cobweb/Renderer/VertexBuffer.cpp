@@ -12,6 +12,17 @@ namespace Cobweb
 	static uint32_t s_ShaderDataTypeCount(ShaderDataType type);
 	static uint32_t s_ShaderDataTypeSize(ShaderDataType type);
 
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(size);
+		}
+
+		CW_CORE_ASSERT(false, "Unknown Renderer API!");
+		return nullptr;
+	}
+
 	Ref<VertexBuffer> VertexBuffer::Create(float *vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())

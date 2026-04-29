@@ -49,7 +49,6 @@ namespace Cobweb
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-
 			RenderCommand::SetClearColor({ 0.8f, 0.2f, 0.5f, 1.0f });
 			RenderCommand::Clear();
 

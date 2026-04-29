@@ -11,6 +11,8 @@ namespace Cobweb
 		OpenGLTexture2D(const std::string &filePath);
 		~OpenGLTexture2D();
 
+		inline uint32_t GetID() const override { return m_RendererID; }
+
 		inline int GetWidth() const override { return m_Width; }
 		inline int GetHeight() const override { return m_Height; }
 		inline std::pair<int, int> GetSize() const override { return { m_Width, m_Height }; }

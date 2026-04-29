@@ -6,6 +6,7 @@
 #include "Shader.h"
 #include "UniformBuffer.h"
 #include "Texture.h"
+#include "SubTexture.h"
 
 #include "Cobweb/Core/Core.h"
 
@@ -16,6 +17,15 @@ namespace Cobweb
 	class Renderer2D
 	{
 	public:
+		struct Statistics
+		{
+			uint32_t DrawCallCount = 0;
+			uint32_t QuadCount = 0;
+			uint32_t VertexCount = 0;
+			uint32_t IndexCount = 0;
+		};
+
+	public:
 		Renderer2D() = delete;
 		~Renderer2D() = delete;
 
@@ -24,23 +34,26 @@ namespace Cobweb
 
 		static void BeginScene(const OrthographicCamera &camera);
 		static void EndScene();
+		static void Flush();
 
 		static void DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const glm::vec4 &color);
 		static void DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const glm::vec4 &color);
-		static void DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture);
-		static void DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture);
+		static void DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture, float tilingFactor = 1.0f);
+		static void DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const Ref<Texture2D> &texture, float tilingFactor = 1.0f);
+		static void DrawQuad(const glm::vec2 &pos, const glm::vec2 &size, const Ref<SubTexture2D> &subTexture);
+		static void DrawQuad(const glm::vec3 &pos, const glm::vec2 &size, const Ref<SubTexture2D> &subTexture);
+
+		static void DrawRotatedQuad(const glm::vec2 &pos, const glm::vec2 &size, float rotation, const glm::vec4 &color);
+		static void DrawRotatedQuad(const glm::vec3 &pos, const glm::vec2 &size, float rotation, const glm::vec4 &color);
+		static void DrawRotatedQuad(const glm::vec2 &pos, const glm::vec2 &size, float rotation, const Ref<Texture2D> &texture, float tilingFactor = 1.0f);
+		static void DrawRotatedQuad(const glm::vec3 &pos, const glm::vec2 &size, float rotation, const Ref<Texture2D> &texture, float tilingFactor = 1.0f);
+		static void DrawRotatedQuad(const glm::vec2 &pos, const glm::vec2 &size, float rotation, const Ref<SubTexture2D> &subTexture);
+		static void DrawRotatedQuad(const glm::vec3 &pos, const glm::vec2 &size, float rotation, const Ref<SubTexture2D> &subTexture);
+
+		static const Statistics &GetStatistics();
+		static void ResetStatistics();
 
 	private:
-		struct SceneData
-		{
-			glm::vec4 DefaultColor = glm::vec4(1.0f);
-			Ref<Texture2D> DefaultTexture = Texture2D::Create(1, 1);
-
-			Ref<VertexArray> VertexArray = VertexArray::Create();
-			Ref<Shader> Shader = Shader::Create("Texture", "assets/shaders/.bin/Texture_vert.spv", "assets/shaders/.bin/Texture_frag.spv");
-			Ref<UniformBuffer> UniformBuffer = UniformBuffer::Create(sizeof(glm::mat4) + sizeof(glm::mat4) + sizeof(glm::vec4), 0);
-		};
-
-		static Scope<SceneData> s_SceneData;
+		static void FlushIfNeed();
 	};
 }

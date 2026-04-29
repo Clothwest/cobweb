@@ -15,6 +15,11 @@ namespace Cobweb
 		s_RendererAPI->DrawIndexed(vao);
 	}
 
+	void RenderCommand::DrawIndexed(const Ref<VertexArray> &vao, uint32_t indexCount)
+	{
+		s_RendererAPI->DrawIndexed(vao, indexCount);
+	}
+
 	void RenderCommand::Clear()
 	{
 		s_RendererAPI->Clear();

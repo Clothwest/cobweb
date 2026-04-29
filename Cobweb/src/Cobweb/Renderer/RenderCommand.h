@@ -12,6 +12,7 @@ namespace Cobweb
 		static void Init();
 
 		static void DrawIndexed(const Ref<VertexArray> &vao);
+		static void DrawIndexed(const Ref<VertexArray> &vao, uint32_t indexCount);
 		static void Clear();
 		static void SetClearColor(const glm::vec4 &color);
 		static void SetViewport(int width, int height);

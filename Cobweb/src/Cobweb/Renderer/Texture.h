@@ -12,6 +12,8 @@ namespace Cobweb
 	public:
 		virtual ~Texture() = default;
 
+		virtual uint32_t GetID() const = 0;
+
 		virtual int GetWidth() const = 0;
 		virtual int GetHeight() const = 0;
 		virtual std::pair<int, int> GetSize() const = 0;

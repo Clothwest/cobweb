@@ -9,11 +9,19 @@ namespace Cobweb
 	{
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray> &vao) const
 	{
 		glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
+
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray> &vao, uint32_t indexCount) const
+	{
+		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 	}
 
 	void OpenGLRendererAPI::Clear() const
