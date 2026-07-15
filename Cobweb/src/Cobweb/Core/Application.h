@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Base.h"
 #include "Window.h"
 #include "LayerStack.h"
 #include "Cobweb/ImGui/ImGuiLayer.h"
@@ -24,6 +24,7 @@ namespace Cobweb
 		void PushOverlay(Layer *overlay);
 
 		inline Window &GetWindow() { return *m_Window; }
+		inline ImGuiLayer *GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
 		bool OnWindowClosed(WindowClosedEvent &e);
@@ -33,7 +34,7 @@ namespace Cobweb
 		bool m_Running = true;
 		float m_LastFrameTime;
 
-		Scope<Window> m_Window;
+		Window *m_Window;
 
 		LayerStack m_Layers;
 		ImGuiLayer *m_ImGuiLayer = new ImGuiLayer();

@@ -1,5 +1,5 @@
 #include <Cobweb.h>
-#include <Cobweb/Core/EntryPoint.h>
+#include <Cobweb/EntryPoint.h>
 
 #include "SandboxLayer.h"
 #include "Sandbox2DLayer.h"

@@ -1,7 +1,7 @@
 #include "cwpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Cobweb/Core/Core.h"
+#include "Cobweb/Core/Base.h"
 #include "Cobweb/Core/Input.h"
 #include "Cobweb/Core/KeyCodes.h"
 
@@ -52,6 +52,12 @@ namespace Cobweb
 		dispatcher.Dispatch<MouseScrolledEvent>(CW_BIND_FN(OrthographicCameraController::OnMouseScrolled));
 	}
 
+	void OrthographicCameraController::Resize(const glm::vec2 &size)
+	{
+		m_CameraBound = { -size.x / 2.0f, size.x / 2.0f, -size.y / 2.0f, size.y / 2.0f };
+		CalculateCameraProjectionMatrix();
+	}
+
 	void OrthographicCameraController::SetZoomLevel(float level)
 	{
 		m_ZoomLevel = level;
@@ -61,8 +67,7 @@ namespace Cobweb
 	bool OrthographicCameraController::OnWindowResized(WindowResizedEvent &e)
 	{
 		const auto &[width, height] = e.GetDisplaySize();
-		m_CameraBound = glm::vec4(-(float)width / 2.0f, (float)width / 2.0f, -(float)height / 2.0f, (float)height / 2.0f);
-		CalculateCameraProjectionMatrix();
+		Resize({ width, height });
 		return false;
 	}
 

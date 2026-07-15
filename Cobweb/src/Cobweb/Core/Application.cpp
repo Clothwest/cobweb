@@ -25,6 +25,7 @@ namespace Cobweb
 		s_Instance = this;
 
 		m_Window = Window::Create();
+		m_Window->Init();
 		m_Window->SetEventCallback(CW_BIND_FN(Application::OnEvent));
 
 		m_LastFrameTime = (float)glfwGetTime();

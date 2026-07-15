@@ -3,7 +3,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 
-#include "Cobweb/Core/Core.h"
+#include "Cobweb/Core/Base.h"
 
 #include <vector>
 

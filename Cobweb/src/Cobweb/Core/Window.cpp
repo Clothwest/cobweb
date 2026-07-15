@@ -1,21 +1,36 @@
 #include "cwpch.h"
-#include "WindowsWindow.h"
+#include "Window.h"
 
 #include "Cobweb/Core/Log.h"
 
+#include "Cobweb/Core/KeyCodes.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Cobweb
 {
-	Scope<Window> Window::Create(const WindowProps &props)
+	Window *Window::Create(const WindowSpecification &spec)
 	{
-		return CreateScope<WindowsWindow>(props);
+		return new Window(spec);
 	}
 
-	WindowsWindow::WindowsWindow(const WindowProps &props)
-		: m_Data(props)
+	Window::Window(const WindowSpecification &spec)
+		: m_Specification(spec)
+	{}
+
+	Window::~Window()
 	{
-		CW_CORE_INFO("Creating window \"{0}\" ({1}, {2}).", props.Title, props.Width, props.Height);
+		delete m_Context;
+		glfwDestroyWindow(m_Window);
+		glfwTerminate();
+	}
+
+	void Window::Init()
+	{
+		m_Data.Title = m_Specification.Title;
+		m_Data.Width = m_Specification.Width;
+		m_Data.Height = m_Specification.Height;
+
+		CW_CORE_INFO("Creating window '{0}' ({1}, {2}).", m_Specification.Title, m_Specification.Width, m_Specification.Height);
 
 		int success = glfwInit();
 		CW_CORE_ASSERT(success, "Could not initialize GLFW!");
@@ -33,45 +48,37 @@ namespace Cobweb
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
 
-		glfwSetWindowCloseCallback(m_Window, &WindowsWindow::OnWindowClosed);
-		glfwSetWindowSizeCallback(m_Window, &WindowsWindow::OnWindowResized);
-		glfwSetWindowPosCallback(m_Window, &WindowsWindow::OnWindowMoved);
-		glfwSetWindowFocusCallback(m_Window, &WindowsWindow::OnWindowFocusEvent);
+		glfwSetWindowCloseCallback(m_Window, &Window::OnWindowClosed);
+		glfwSetWindowSizeCallback(m_Window, &Window::OnWindowResized);
+		glfwSetWindowPosCallback(m_Window, &Window::OnWindowMoved);
+		glfwSetWindowFocusCallback(m_Window, &Window::OnWindowFocusEvent);
 
-		glfwSetKeyCallback(m_Window, &WindowsWindow::OnKeyEvent);
-		glfwSetCharCallback(m_Window, &WindowsWindow::OnKeyTyped);
+		glfwSetKeyCallback(m_Window, &Window::OnKeyEvent);
+		glfwSetCharCallback(m_Window, &Window::OnKeyTyped);
 
-		glfwSetCursorPosCallback(m_Window, &WindowsWindow::OnMouseMoved);
-		glfwSetMouseButtonCallback(m_Window, &WindowsWindow::OnMouseButtonEvent);
-		glfwSetScrollCallback(m_Window, &WindowsWindow::OnMouseScrolled);
+		glfwSetCursorPosCallback(m_Window, &Window::OnMouseMoved);
+		glfwSetMouseButtonCallback(m_Window, &Window::OnMouseButtonEvent);
+		glfwSetScrollCallback(m_Window, &Window::OnMouseScrolled);
 	}
 
-	WindowsWindow::~WindowsWindow()
-	{
-		delete m_Context;
-		glfwDestroyWindow(m_Window);
-		glfwTerminate();
-	}
-
-	void WindowsWindow::OnUpdate()
+	void Window::OnUpdate()
 	{
 		glfwPollEvents();
 		m_Context->SwapBuffer();
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void Window::SetVSync(bool enabled)
 	{
 		if (enabled)
 			glfwSwapInterval(1);
 		else
 			glfwSwapInterval(0);
 
-		m_Data.VSync = enabled;
+		m_Specification.VSync = enabled;
 	}
 
-	void WindowsWindow::OnWindowClosed(GLFWwindow *window)
+	void Window::OnWindowClosed(GLFWwindow *window)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -79,7 +86,7 @@ namespace Cobweb
 		data.EventCallback(event);
 	}
 
-	void WindowsWindow::OnWindowResized(GLFWwindow *window, int width, int height)
+	void Window::OnWindowResized(GLFWwindow *window, int width, int height)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -90,7 +97,7 @@ namespace Cobweb
 		data.EventCallback(event);
 	}
 
-	void WindowsWindow::OnWindowMoved(GLFWwindow *window, int xPos, int yPos)
+	void Window::OnWindowMoved(GLFWwindow *window, int xPos, int yPos)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -98,7 +105,7 @@ namespace Cobweb
 		data.EventCallback(event);
 	}
 
-	void WindowsWindow::OnWindowFocusEvent(GLFWwindow *window, int focused)
+	void Window::OnWindowFocusEvent(GLFWwindow *window, int focused)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -114,7 +121,7 @@ namespace Cobweb
 		}
 	}
 
-	void WindowsWindow::OnKeyEvent(GLFWwindow *window, int keyCode, int scanCode, int action, int mods)
+	void Window::OnKeyEvent(GLFWwindow *window, int keyCode, int scanCode, int action, int mods)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -122,34 +129,34 @@ namespace Cobweb
 		{
 			case GLFW_PRESS:
 			{
-				KeyPressedEvent event(keyCode, 0);
+				KeyPressedEvent event((KeyCode)keyCode, 0);
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_REPEAT:
 			{
-				KeyPressedEvent event(keyCode, 1);
+				KeyPressedEvent event((KeyCode)keyCode, 1);
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_RELEASE:
 			{
-				KeyReleasedEvent event(keyCode);
+				KeyReleasedEvent event((KeyCode)keyCode);
 				data.EventCallback(event);
 				break;
 			}
 		}
 	}
 
-	void WindowsWindow::OnKeyTyped(GLFWwindow *window, unsigned int codePoint)
+	void Window::OnKeyTyped(GLFWwindow *window, unsigned int codePoint)
 	{
 		WindowData &data = GetWindowData(window);
 
-		KeyTypedEvent event(codePoint);
+		KeyTypedEvent event((KeyCode)codePoint);
 		data.EventCallback(event);
 	}
 
-	void WindowsWindow::OnMouseMoved(GLFWwindow *window, double xPos, double yPos)
+	void Window::OnMouseMoved(GLFWwindow *window, double xPos, double yPos)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -157,7 +164,7 @@ namespace Cobweb
 		data.EventCallback(event);
 	}
 
-	void WindowsWindow::OnMouseButtonEvent(GLFWwindow *window, int button, int action, int mods)
+	void Window::OnMouseButtonEvent(GLFWwindow *window, int button, int action, int mods)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -178,7 +185,7 @@ namespace Cobweb
 		}
 	}
 
-	void WindowsWindow::OnMouseScrolled(GLFWwindow *window, double xOffset, double yOffset)
+	void Window::OnMouseScrolled(GLFWwindow *window, double xOffset, double yOffset)
 	{
 		WindowData &data = GetWindowData(window);
 
@@ -186,9 +193,9 @@ namespace Cobweb
 		data.EventCallback(event);
 	}
 
-	WindowsWindow::WindowData &GetWindowData(GLFWwindow *window)
+	Window::WindowData &Window::GetWindowData(GLFWwindow *window)
 	{
-		WindowsWindow::WindowData &data = *(WindowsWindow::WindowData *)glfwGetWindowUserPointer(window);
+		WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
 		CW_CORE_ASSERT(data.EventCallback, "Did not bind EventCallback!");
 		return data;
 	}

@@ -8,7 +8,7 @@
 #include "Texture.h"
 #include "SubTexture.h"
 
-#include "Cobweb/Core/Core.h"
+#include "Cobweb/Core/Base.h"
 
 #include <glm/glm.hpp>
 

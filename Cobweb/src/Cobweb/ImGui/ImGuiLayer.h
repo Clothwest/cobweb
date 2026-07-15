@@ -17,5 +17,10 @@ namespace Cobweb
 
 		void Begin();
 		void End();
+
+		inline void SetBlockEvents(bool blocked) { m_BlockEvents = blocked; }
+
+	private:
+		bool m_BlockEvents = true;
 	};
 }

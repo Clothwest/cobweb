@@ -9,8 +9,7 @@ namespace Cobweb
 {
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer")
-	{
-	}
+	{}
 
 	void ImGuiLayer::OnAttach()
 	{
@@ -42,18 +41,21 @@ namespace Cobweb
 
 	void ImGuiLayer::OnImGuiDraw()
 	{
-		static bool show = true;
-		if (show)
-			ImGui::ShowDemoWindow(&show);
+		//static bool show = true;
+		//if (show)
+		//	ImGui::ShowDemoWindow(&show);
 	}
 
 	void ImGuiLayer::OnEvent(Event &e)
 	{
-		ImGuiIO &io = ImGui::GetIO();
-		if (e.IsInCategory(EventCategory_Keyboard) && io.WantCaptureKeyboard)
-			e.Handle();
-		else if (e.IsInCategory(EventCategory_Mouse) && io.WantCaptureMouse)
-			e.Handle();
+		if (m_BlockEvents)
+		{
+			ImGuiIO &io = ImGui::GetIO();
+			if (e.IsInCategory(EventCategory_Keyboard) && io.WantCaptureKeyboard)
+				e.Handle();
+			else if (e.IsInCategory(EventCategory_Mouse) && io.WantCaptureMouse)
+				e.Handle();
+		}
 	}
 
 	void ImGuiLayer::Begin()

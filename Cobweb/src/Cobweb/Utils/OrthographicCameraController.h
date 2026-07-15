@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OrthographicCamera.h"
+#include "Cobweb/Renderer/OrthographicCamera.h"
 
 #include "Cobweb/Core/TimeStep.h"
-#include "Cobweb/Events/Events.h"
+#include "Cobweb/Core/Events/Events.h"
 
 #include <glm/glm.hpp>
 
@@ -17,6 +17,8 @@ namespace Cobweb
 
 		void OnUpdate(TimeStep ts);
 		void OnEvent(Event &e);
+
+		void Resize(const glm::vec2 &size);
 
 		inline const OrthographicCamera &GetCamera() const { return m_Camera; }
 

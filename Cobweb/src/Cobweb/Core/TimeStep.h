@@ -14,8 +14,7 @@ namespace Cobweb
 	public:
 		TimeStep(float time = 0.0f)
 			: m_Time(time)
-		{
-		}
+		{}
 
 		~TimeStep() = default;
 
@@ -36,7 +35,7 @@ namespace Cobweb
 	};
 }
 
-template <>
+template<>
 struct fmt::formatter<Cobweb::TimeStep> : public formatter<std::string_view>
 {
 	format_context::iterator format(Cobweb::TimeStep ts, format_context &ctx) const

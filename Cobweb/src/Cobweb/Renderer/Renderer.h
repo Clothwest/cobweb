@@ -5,8 +5,8 @@
 #include "Shader.h"
 #include "UniformBuffer.h"
 
-#include "Cobweb/Core/Core.h"
-#include "Cobweb/Events/Events.h"
+#include "Cobweb/Core/Base.h"
+#include "Cobweb/Core/Events/Events.h"
 
 #include <glm/glm.hpp>
 

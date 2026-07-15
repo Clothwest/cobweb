@@ -1,38 +1,20 @@
 #pragma once
 
-#include <utility>
+#include "KeyCodes.h"
 
-// TODO: define the ownership of Input (should be deleted somewhere)
+#include <utility>
 
 namespace Cobweb
 {
 	class Input
 	{
 	public:
-		static inline bool IsKeyPressed(int keyCode) { return s_Instance->IsKeyPressedImpl(keyCode); }
+		static bool IsKeyPressed(KeyCode key);
 
-		static inline float GetMouseX() { return s_Instance->GetMouseXImpl(); }
-		static inline float GetMouseY() { return s_Instance->GetMouseYImpl(); }
-		static inline std::pair<float, float> GetMousePos() { return s_Instance->GetMousePosImpl(); }
+		static float GetMouseX();
+		static float GetMouseY();
+		static std::pair<float, float> GetMousePos();
 
-		static inline bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }
-
-	public:
-		virtual ~Input() = default;
-
-	protected:
-		Input() = default;
-
-	private:
-		virtual bool IsKeyPressedImpl(int keyCode) const = 0;
-
-		virtual float GetMouseXImpl() const = 0;
-		virtual float GetMouseYImpl() const = 0;
-		virtual std::pair<float, float> GetMousePosImpl() const = 0;
-
-		virtual bool IsMouseButtonPressedImpl(int button) const = 0;
-
-	private:
-		static Input *s_Instance;
+		static bool IsMouseButtonPressed(MouseButton button);
 	};
 }

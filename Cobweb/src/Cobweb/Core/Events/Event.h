@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cobweb/Core/Core.h"
+#include "Cobweb/Core/Base.h"
 
 #include "Cobweb/Core/Log.h"
 

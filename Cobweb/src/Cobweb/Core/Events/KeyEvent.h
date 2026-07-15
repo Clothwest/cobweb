@@ -2,6 +2,8 @@
 
 #include "Event.h"
 
+#include "Cobweb/Core/KeyCodes.h"
+
 namespace Cobweb
 {
 	class KeyEvent : public Event
@@ -9,27 +11,25 @@ namespace Cobweb
 	public:
 		virtual ~KeyEvent() = default;
 
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategory_Keyboard | EventCategory_Input);
-		
-	protected:
-		KeyEvent(int keyCode)
-			: m_KeyCode(keyCode)
-		{
-		}
 
 	protected:
-		int m_KeyCode;
+		KeyEvent(KeyCode keyCode)
+			: m_KeyCode(keyCode)
+		{}
+
+	protected:
+		KeyCode m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keyCode, int repeatCount)
+		KeyPressedEvent(KeyCode keyCode, int repeatCount)
 			: KeyEvent(keyCode), m_RepeatCount(repeatCount)
-		{
-		}
+		{}
 
 		~KeyPressedEvent() = default;
 
@@ -51,10 +51,9 @@ namespace Cobweb
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keyCode)
+		KeyReleasedEvent(KeyCode keyCode)
 			: KeyEvent(keyCode)
-		{
-		}
+		{}
 
 		~KeyReleasedEvent() = default;
 
@@ -71,10 +70,9 @@ namespace Cobweb
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int codePoint)
+		KeyTypedEvent(KeyCode codePoint)
 			: KeyEvent(codePoint)
-		{
-		}
+		{}
 
 		~KeyTypedEvent() = default;
 

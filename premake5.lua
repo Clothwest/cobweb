@@ -3,7 +3,7 @@ workspace "Cobweb"
 	staticruntime "On"
 	systemversion "latest"
 
-	startproject "Sandbox"
+	startproject "Editor"
 
 	configurations
 	{
@@ -51,6 +51,7 @@ group ""
 
 include "Cobweb"
 
+include "Editor"
 include "Sandbox"
 
 newaction
